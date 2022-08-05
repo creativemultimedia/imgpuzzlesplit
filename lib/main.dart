@@ -41,14 +41,11 @@ class _MyAppState extends State<MyApp> {
       x = 0;
       y += height;
     }
-
-
     // convert image from image package to Image Widget to display
     List<Image> output = [];
     for (var img in parts) {
       output.add(Image.memory(Uint8List.fromList(imglib.encodeJpg(img))));
     }
-
 
     return output;
   }
@@ -57,7 +54,6 @@ class _MyAppState extends State<MyApp> {
 
     final file = File('${(await getTemporaryDirectory()).path}/$path');
     await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-
 
     return file;
   }
