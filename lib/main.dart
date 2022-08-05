@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as imglib;
@@ -51,10 +52,9 @@ class _MyAppState extends State<MyApp> {
   }
   Future<File> getImageFileFromAssets(String path) async {
     final byteData = await rootBundle.load('$path');
-
-    final file = File('${(await getTemporaryDirectory()).path}/$path');
+    var dir_path = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    File file=File(dir_path+"/img.jpg");
     await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-
     return file;
   }
 
