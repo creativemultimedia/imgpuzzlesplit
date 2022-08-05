@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
   List<Image> list=[];
   int horizontalPieceCount=3;
   int verticalPieceCount=3;
-
   List<Image> splitImage(List<int> input)
   {
     imglib.Image? image = imglib.decodeImage(input);
