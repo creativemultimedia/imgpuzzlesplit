@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image/image.dart' as imglib;
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -50,13 +53,25 @@ class _MyAppState extends State<MyApp> {
 
     return output;
   }
+  Future<File> getImageFileFromAssets(String path) async {
+    final byteData = await rootBundle.load('$path');
 
+    final file = File('${(await getTemporaryDirectory()).path}/$path');
+    await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+
+
+    return file;
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Image image=Image.asset("image/download.jpg");
-    list=splitImage(image.);
+    
+    getImageFileFromAssets("image/download.jpg").then((value) {
+      List<int> data=value.readAsBytesSync();
+      list=splitImage(data);
+    });
+
 
   }
 
