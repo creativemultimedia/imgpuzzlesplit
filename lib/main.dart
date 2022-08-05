@@ -57,29 +57,31 @@ class _MyAppState extends State<MyApp> {
 
     return file;
   }
+
+
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-    
+    print("Hello1");
     getImageFileFromAssets("image/download.jpg").then((value) {
+      print("Hello2");
       List<int> data=value.readAsBytesSync();
-      list=splitImage(data);
+      setState(() {
+        list=splitImage(data);
+      });
+      print(list);
     });
-
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      // body: GridView.builder(
-      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,mainAxisSpacing: 5,crossAxisSpacing: 5),
-      //   itemCount:list.length,
-      //   itemBuilder: (context, index) {
-      //   return GridTile(child: list[index]);
-      // },),
+      appBar: AppBar(title: Text("APP"),),
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,mainAxisSpacing: 5,crossAxisSpacing: 5),
+        itemCount:list.length,
+        itemBuilder: (context, index) {
+        return GridTile(child: list[index]);
+      },),
     );
   }
 }
